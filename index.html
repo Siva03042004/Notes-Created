@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes Created</title>
+    <!-- Bootstrap CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container mt-5">
+    <div class="text-center mb-4">
+        <h1>Notes</h1>
+        <button class="btn btn-primary" id="createNoteBtn">Create Note</button>
+    </div>
+    <div id="notesSection">
+        <ul class="list-group" id="notesList"></ul>
+    </div>
+
+    <!-- Script file -->
+    <script>
+        const notesList = document.getElementById('notesList');
+
+        document.getElementById('createNoteBtn').addEventListener('click', function() {
+            addNewNote();
+        });
+
+        function addNewNote() {
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item mb-3';  // Bootstrap spacing
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'form-control mb-3';  // Bootstrap spacing
+            input.placeholder = 'Enter your note';
+
+            const buttonGroup = document.createElement('div');
+            buttonGroup.className = 'd-flex justify-content-center';  // Centering buttons
+
+            const saveButton = document.createElement('button');
+            saveButton.className = 'btn btn-success me-2';  // Bootstrap margin-end
+            saveButton.textContent = 'Save';
+            saveButton.addEventListener('click', function() {
+                if (input.value) {
+                    input.disabled = true;
+                    saveButton.disabled = true;
+                    alert('Note saved: ' + input.value);
+                } else {
+                    alert('Please enter a note before saving.');
+                }
+            });
+
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'btn btn-danger';
+            deleteButton.textContent = 'Delete';
+            deleteButton.addEventListener('click', function() {
+                notesList.removeChild(listItem);
+                alert('Note deleted');
+            });
+
+            buttonGroup.appendChild(saveButton);
+            buttonGroup.appendChild(deleteButton);
+
+            listItem.appendChild(input);
+            listItem.appendChild(buttonGroup);
+
+            notesList.appendChild(listItem);
+        }
+    </script>
+</body>
+</html>
